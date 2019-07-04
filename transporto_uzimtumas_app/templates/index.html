@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<head>
+	<meta charset='UTF-8'>
+
+	<title>Transportas</title>
+
+	<link rel='stylesheet' href='css/style.css'>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script>
+		$(function() {
+
+			$("#json-one").change(function() {
+
+				var $dropdown = $(this);
+
+				$.getJSON("static/stops.json", function(data) {
+					    var key = $dropdown.val();
+					    var vals = [];
+
+					    switch(key) {
+						    case '5':
+							    vals = data.stops['5'].split(",");
+							    vals = data.directions['5'].split(",");
+							    break;
+						    case '10':
+							    vals = data.stops['10'].split(",");
+							    vals2 = data.directions['10'].split(",");
+							    break;
+						    case '18':
+							    vals = data.stops['18'].split(",");
+							    vals2 = data.directions['18'].split(",");
+							    break;
+						    case '22':
+							    vals = data.stops['22'].split(",");
+							    vals2 = data.directions['22'].split(",");
+                                break;
+						    case '24':
+							    vals = data.stops['24'].split(",");
+							    vals2 = data.directions['24'].split(",");
+							    break;
+						    case '33':
+							    vals = data.stops['33'].split(",");
+							    vals2 = data.directions['33'].split(",");
+							    break;
+						    case '46':
+							    vals = data.stops['46'].split(",");
+							    vals2 = data.directions['46'].split(",");
+							    break;
+						    case '48':
+							    vals = data.stops['48'].split(",");
+							    vals2 = data.directions['48'].split(",");
+							    break;
+						    case '49':
+							    vals = data.stops['49'].split(",");
+							    vals2 = data.directions['49'].split(",");
+							    break;
+						    case '50':
+							    vals = data.stops['50'].split(",");
+							    vals2 = data.directions['50'].split(",");
+							    break;
+						    case '52':
+							    vals = data.stops['52'].split(",");
+							    vals2 = data.directions['52'].split(",");
+							    break;
+						    case '55':
+							    vals = data.stops['55'].split(",");
+							    vals2 = data.directions['55'].split(",");
+							    break;
+						    case '68':
+							    vals = data.stops['68'].split(",");
+							    vals2 = data.directions['68'].split(",");
+							    break;
+						    case '69':
+							    vals = data.stops['69'].split(",");
+							    vals2 = data.directions['69'].split(",");
+							    break;
+						    case '87':
+							    vals = data.stops['87'].split(",");
+							    vals2 = data.directions['87'].split(",");
+							    break;
+						    case 'base':
+							    vals = ['Please choose from above'];
+					    }
+
+					    var $jsontwo = $("#json-two");
+					    $jsontwo.empty();
+					    $.each(vals, function(index, value) {
+						    $jsontwo.append("<option>" + value + "</option>");
+                    });
+
+						var $jsonthree = $("#json-three");
+					    $jsonthree.empty();
+					    $.each(vals2, function(index, value) {
+						    $jsonthree.append("<option>" + value + "</option>");
+                    });
+
+			     });
+		      });
+            });
+	</script>
+</head>
+
+<body>
+
+	<div id="page-wrap">
+
+		<h1>Viešojo transporto užimtumo prognozė (DEMO)</h1>
+		<br>
+		<text>Įrankis skirtas padėti Vilniaus miesto gyventojams planuoti kelionę viešuoju transportu. Šis įrankis<br>
+			prognozuoja kiek procentų sėdimų vietų autobuse bus užimta nurodytu laiku. Prognozės paremtos 2016m. autobusų<br>
+			užimtumo jutiklių duomenimis (<a href="http://https://github.com/vilnius/keleiviu-srautai/tree/master/data">link</a>).
+			<br><br>
+			Demo V1 (2019.07.03)<br>
+			- 15 autobusų maršrutų<br>
+			- Duomenu prognozė 2017m. Sausio mėnesiui<br>
+			- Paremta RandomForest algoritmu (tikslumas 2016m duomenims: +-7% (MSE: 48.98))<br>
+		</text>
+
+		<br><br><br>
+		<h2>
+
+		<form action="/result" method="POST">
+			<label for="diena">Kelionės diena (2017m. Sausis)</label>
+			<br>
+    		<select type="text" id="diena" name="diena">
+    			<option selected value="base">-- Pasirinkite --</option>
+    			<option value="1">1</option>
+    			<option value="2">2</option>
+    			<option value="3">3</option>
+    			<option value="4">4</option>
+    			<option value="5">5</option>
+    			<option value="6">6</option>
+    			<option value="7">7</option>
+    			<option value="8">8</option>
+    			<option value="9">9</option>
+    			<option value="10">10</option>
+    			<option value="11">11</option>
+    			<option value="12">12</option>
+    			<option value="13">13</option>
+    			<option value="14">14</option>
+    			<option value="15">15</option>
+    			<option value="16">16</option>
+    			<option value="17">17</option>
+    			<option value="18">18</option>
+    			<option value="19">19</option>
+    			<option value="20">20</option>
+    			<option value="21">21</option>
+    			<option value="22">22</option>
+    			<option value="23">23</option>
+    			<option value="24">24</option>
+    			<option value="25">25</option>
+    			<option value="26">26</option>
+    			<option value="27">27</option>
+    			<option value="28">28</option>
+    			<option value="29">29</option>
+    			<option value="30">30</option>
+    			<option value="31">31</option>
+    		</select>
+    		<br>
+    		<br>
+    		<label for="time">Įlipimo laikas</label>
+    		<br>
+    		<input name="time" id="time" type="time" value="07:30" min="05:30" max="23:59"/>
+    		<br>
+    		<br>
+
+    		<label for="line">Autobuso maršrutas</label>
+    		<br>
+			<select id="json-one" name="line">
+				<option selected value="base">-- Pasirinkite --</option>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="18">18</option>
+				<option value="22">22</option>
+				<option value="24">24</option>
+				<option value="33">33</option>
+				<option value="46">46</option>
+				<option value="48">48</option>
+				<option value="49">49</option>
+				<option value="50">50</option>
+				<option value="52">52</option>
+				<option value="55">55</option>
+				<option value="68">68</option>
+				<option value="69">69</option>
+				<option value="87">87</option>
+
+			</select>
+
+			<br>
+			<br>
+			<label for="stop_name">Įlipimo stotelė</label>
+			<br>
+			<select id="json-two" name="stop_name">
+				<option>-- Pasirinkite --</option>
+			</select>
+
+	        <br>
+	        <br>
+
+	        <label for="direction">Kryptis</label>
+	        <br>
+			<select id="json-three" name="direction">
+				<option>-- Pasirinkite --</option>
+			</select>
+
+			<br>
+			<br>
+			<br>
+		    <input type="submit" value="Gerai">
+
+		</form>
+	</div>
+
+</body>
+
+</html>
